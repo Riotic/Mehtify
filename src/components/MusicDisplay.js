@@ -2,6 +2,7 @@ import '../css/MusicDisplay.css';
 import logoDefaultMusic from '../media/img/logoSongDefault.png';
 import playButton from '../media/img/buttonPlay.png';
 import pauseButton from '../media/img/Pause1.png';
+import {Howl, Howler} from 'howler';
 
 function Button(pressed){
     if(pressed){
@@ -12,6 +13,7 @@ function Button(pressed){
 }
 
 function MusicDisplay({imageUrl, title, author} ){
+    
     const urlImage = imageUrl;
     return (   <>  
     <section className="App-musicDisplay">
