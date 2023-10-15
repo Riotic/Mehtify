@@ -1,5 +1,5 @@
 import '../css/MusicDisplay.css';
-import logoDefaultMusic from '../media/img/logoSongDefault.png';
+
 import playButton from '../media/img/buttonPlay.png';
 import pauseButton from '../media/img/Pause1.png';
 import React, { useState, useRef } from 'react';
@@ -22,14 +22,14 @@ function MusicDisplay({ imageUrl, title, author, musicToPlay, onPlay, isPlaying 
         allAudioElements.forEach((element) => {
           if (element !== audioRef.current) {
             element.pause();
-            // console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+            
             if(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]){
-                console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+            
                 element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].src = playButton;
                 element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].alt = "button play";
                 element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].className = "ButtonPlayIcon";
             }
-            // console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+            
           }
         });
         audioRef.current.play();

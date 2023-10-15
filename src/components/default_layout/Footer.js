@@ -1,6 +1,6 @@
 import '../../css/Footer.css';
 import logoPause2 from '../../media/img/Pause2.png';
-import play2 from '../../media/img/buttonPlay2.png';
+// import play2 from '../../media/img/buttonPlay2.png';
 import progressBar from '../../media/img/progress-bar-empty.png';
 function Footer(){
     return      (
