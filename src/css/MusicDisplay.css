@@ -10,6 +10,10 @@
     color: #000000;
 }
 
+.App-musicDisplay p{
+    width: 20%;
+}
+
 .App-musicDisplay button{
     margin: 4%;
 }
@@ -42,6 +46,11 @@
     filter: brightness(50%);
 }
 
+.App-logoSong{
+    height: 70%;
+    width: 10%;
+}
+
 @media screen and (max-height:750px ){
     .App-logoSong{
         height: 70%;
@@ -49,3 +58,10 @@
 
 }
 
+@media screen and (max-width: 650px){
+    .App-musicDisplay p{
+        width: 10%;
+        overflow: scroll;
+    }
+    
+}

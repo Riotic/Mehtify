@@ -2,34 +2,58 @@ import '../css/MusicDisplay.css';
 import logoDefaultMusic from '../media/img/logoSongDefault.png';
 import playButton from '../media/img/buttonPlay.png';
 import pauseButton from '../media/img/Pause1.png';
-import {Howl, Howler} from 'howler';
+import React, { useState, useRef } from 'react';
 
-function Button(pressed){
-    if(pressed){
-        return <button className='ButtonPlay, ButtonPauseIcon' ><img src={pauseButton}  alt="button Pause" /><img src={pauseButton}  alt="button Pause" /></button>
-    }else{
-        return <button className='ButtonPlay'><img src={playButton} className='ButtonPlayIcon' alt="button play" /></button>
+function MusicDisplay({ imageUrl, title, author, musicToPlay, onPlay, isPlaying }) {
+  const audioRef = useRef(null);
+  const [localIsPlaying, setLocalIsPlaying] = useState(false);
+
+  const handlePlayClick = () => {
+    if (onPlay) {
+      onPlay(musicToPlay);
     }
-}
 
-function MusicDisplay({imageUrl, title, author} ){
-    
-    const urlImage = imageUrl;
-    return (   <>  
-    <section className="App-musicDisplay">
+    if (audioRef.current) {
+      if (localIsPlaying) {
+        audioRef.current.pause();
+      } else {
+
+        const allAudioElements = document.querySelectorAll(".audio-player");
+        allAudioElements.forEach((element) => {
+          if (element !== audioRef.current) {
+            element.pause();
+            // console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+            if(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]){
+                console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+                element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].src = playButton;
+                element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].alt = "button play";
+                element.parentElement.getElementsByClassName('ButtonPauseIcon')[0].className = "ButtonPlayIcon";
+            }
+            // console.log(element.parentElement.getElementsByClassName('ButtonPauseIcon')[0]);
+          }
+        });
+        audioRef.current.play();
+      }
+      setLocalIsPlaying(!localIsPlaying); 
+    }
+  };
+
+  return (
+    <>
+      <section className="App-musicDisplay">
         <img src={imageUrl} className='App-logoSong' alt="logo header" />
         <p>{title}</p>
         <p>{author}</p>
         <p>DURATION</p>
-        {/* <Button
-            pressed={false}
-        /> */}
-        <button className='ButtonPlay'><img src={playButton} className='ButtonPlayIcon' alt="button play" /></button>
-
-    </section>
-
-    </> 
-    )
+        <button onClick={handlePlayClick} className="ButtonPlay">
+          {localIsPlaying ? <img src={pauseButton} className='ButtonPauseIcon' alt="button pause" /> : <img src={playButton} className='ButtonPlayIcon' alt="button play" />}
+        </button>
+        <audio ref={audioRef} className="audio-player">
+          <source src={require(`../media/musiques/${musicToPlay}.mp3`)} type="audio/mpeg" />
+        </audio>
+      </section>
+    </>
+  );
 }
 
-export default MusicDisplay
+export default MusicDisplay;
